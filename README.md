@@ -5,10 +5,10 @@ A Gradle plugin for creating checksums for files in your build.
 
 ```$gradle
 plugins {
-    id 'org.gradle.crypto.checksum' version '1.1.0'
+    id 'net.skytable.checksum-plus' version '1.1.0'
 }
 
-import org.gradle.crypto.checksum.Checksum
+import net.skytable.checksum.Checksum
 
 task generateFiles {
   // Generates some files.

@@ -12,8 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Modifications copyright (C) 2018 Eric Ziegler
  */
-package org.gradle.crypto.checksum
+package net.skytable.checksum
 
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
@@ -31,10 +33,10 @@ class ChecksumSpec extends Specification {
         buildFile = projectDir.newFile('build.gradle')
         buildFile << """
         plugins {
-          id 'org.gradle.crypto.checksum' version '1.1.0'
+          id 'net.skytable.checksum-plus' version '1.1.0'
         }
         
-        import org.gradle.crypto.checksum.Checksum
+        import net.skytable.checksum.Checksum
         import java.nio.file.Paths
         
         task makeAFile {
@@ -162,10 +164,10 @@ class ChecksumSpec extends Specification {
         }
         """
         result = GradleRunner.create()
-            .withProjectDir(projectDir.root)
-            .withArguments('sumAFile')
-            .withPluginClasspath()
-            .build()
+                .withProjectDir(projectDir.root)
+                .withArguments('sumAFile')
+                .withPluginClasspath()
+                .build()
 
         then:
         result.task(':sumAFile').outcome == TaskOutcome.SUCCESS

@@ -12,16 +12,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Modifications copyright (C) 2018 Eric Ziegler
  */
 plugins {
     id 'groovy'
     id 'idea'
     id 'java-gradle-plugin'
+    id 'maven-publish'
     id "nebula.facet" version "3.4.0"
     id 'com.gradle.plugin-publish' version '0.9.7'
 }
 
-group = 'org.gradle.crypto'
+group = 'net.skytable'
 version = '1.1.0'
 
 targetCompatibility = '1.7'
@@ -30,16 +33,13 @@ sourceCompatibility = '1.7'
 // Fix a bad interaction with IntelliJ and Gradle > 4.0
 idea.module.inheritOutputDirs = true
 
-// make the publishing plugin skip checks that disallow publishing to com.gradle / org.gradle groups
-System.setProperty('gradle.publish.skip.namespace.check', 'true')
-
 repositories {
     jcenter()
 }
 
 dependencies {
     compile 'com.google.guava:guava:20.0'
-    testImplementation ('org.spockframework:spock-core:1.1-groovy-2.4') {
+    testImplementation('org.spockframework:spock-core:1.1-groovy-2.4') {
         exclude module: 'groovy-all'
     }
 }
@@ -52,21 +52,21 @@ facets {
 
 gradlePlugin {
     plugins {
-        checksumPlugin {
-            id = "org.gradle.crypto.checksum"
-            implementationClass = "org.gradle.crypto.checksum.ChecksumPlugin"
+        checksumPlusPlugin {
+            id = "net.skytable.checksum-plus"
+            implementationClass = "net.skytable.checksum.ChecksumPlugin"
         }
     }
     testSourceSets sourceSets.functionalTest
 }
 
 pluginBundle {
-    website = 'https://github.com/gradle/gradle-checksum'
-    vcsUrl = 'https://github.com/gradle/gradle-checkusm'
+    website = 'https://github.com/gradle/gradle-checksum-plus'
+    vcsUrl = 'https://github.com/gradle/gradle-checkusm-plus'
     plugins {
-        checksumPlugin {
-            id = 'org.gradle.crypto.checksum'
-            displayName = 'Checksum Plugin'
+        checksumPlusPlugin {
+            id = 'net.skytable.checksum-plus'
+            displayName = 'Checksum Plus Plugin'
             description = 'Create checksums for files in your build.'
             tags = ['cryptography', 'hashing', 'checksum', 'security']
             version = project.version
